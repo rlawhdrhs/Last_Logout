@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 7855364124424602155}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.45, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.8, z: 0}
+  m_LocalScale: {x: 2.5, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7855364125309010524}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1304559308, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,9 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b974a6bf94b321048a0f681b6b0ff1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  health: 3
+  speed: 2.5
+  health: 5
   damage: 1
+  potionPrefab: {fileID: 7007324097262066076, guid: 570fc85eda389b44b96e2db4b63ce02c, type: 3}
+  dropChance: 1
 --- !u!114 &7141523736036203007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +192,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 6
   m_Sprite: {fileID: -1041502901, guid: ab2ea45923617f5429f848d7a6d4e81c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -212,7 +214,7 @@ Animator:
   m_GameObject: {fileID: 7855364125309010522}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2513e468ae75d343b83ed2e7e37bc51, type: 2}
+  m_Controller: {fileID: 9100000, guid: 33c0830918a872e44b93a08cea64be7a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -283,5 +285,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.7, y: 0.9}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0

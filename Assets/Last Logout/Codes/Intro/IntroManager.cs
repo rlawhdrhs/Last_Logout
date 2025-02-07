@@ -7,7 +7,7 @@ public class IntroManager : MonoBehaviour
 {
     public float introDuration = 3f; // 인트로 유지 시간 (초)
     public int currentScene = 0;
-    public int maxScene = 3;
+    public int maxScene = 5;
 
     void Start()
     {

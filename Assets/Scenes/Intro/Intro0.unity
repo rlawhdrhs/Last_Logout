@@ -151,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87128b72a3fbe74c8ceed0bfeae0596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introDuration: 2
+  introDuration: 0.1
   currentScene: 0
-  maxScene: 3
+  maxScene: 4
 --- !u!4 &991132171
 Transform:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ Transform:
   m_GameObject: {fileID: 2080296364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 2.3, z: 0}
+  m_LocalPosition: {x: -3, y: 2.45, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

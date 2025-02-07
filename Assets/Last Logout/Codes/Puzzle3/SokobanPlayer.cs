@@ -15,7 +15,9 @@ public class SokobanPlayer : MonoBehaviour
     {
         // 현재 위치를 타일 좌표로 변환
         currentCell = tilemapFloor.WorldToCell(transform.position);
-        transform.position = tilemapFloor.GetCellCenterWorld(currentCell); // 타일 중앙 정렬
+        Vector3 newPosition = tilemapFloor.GetCellCenterWorld(currentCell);
+        newPosition.y -= 0.12f; // Y축을 0.12만큼 내림
+        transform.position = newPosition;
     }
 
     void Update()
@@ -30,6 +32,7 @@ public class SokobanPlayer : MonoBehaviour
     {
         Vector3Int targetCell = currentCell + direction; // 목표 위치 설정
 
+
         // 벽이 있는지 확인하고 이동 차단
         if (IsWall(targetCell)) return;
 
@@ -42,14 +45,18 @@ public class SokobanPlayer : MonoBehaviour
             {
                 // 파일 이동 성공 시 플레이어 이동
                 currentCell = targetCell;
-                transform.position = tilemapFloor.GetCellCenterWorld(currentCell);
+                Vector3 newPosition = tilemapFloor.GetCellCenterWorld(currentCell);
+                newPosition.y -= 0.12f; // Y축을 0.12만큼 내림
+                transform.position = newPosition;
             }
         }
         else
         {
-            // 파일이 없으면 플레이어 이동
+            // 파일 이동 성공 시 플레이어 이동
             currentCell = targetCell;
-            transform.position = tilemapFloor.GetCellCenterWorld(currentCell);
+            Vector3 newPosition = tilemapFloor.GetCellCenterWorld(currentCell);
+            newPosition.y -= 0.12f; // Y축을 0.12만큼 내림
+            transform.position = newPosition;
         }
     }
 

@@ -11,6 +11,7 @@ TagManager:
   - File
   - Goal
   - Choice
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -47,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3514867607
     locked: 0

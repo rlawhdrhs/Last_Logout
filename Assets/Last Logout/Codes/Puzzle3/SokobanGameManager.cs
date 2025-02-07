@@ -64,7 +64,7 @@ public class SokobanGameManager : MonoBehaviour
         min = time / 60;
         sec = time % 60;
         timerText.text = min + ":" + sec;
-        stageText.text = "Stage " + currentStage + " / " + totalStages;
+        stageText.text = currentStage + " / " + totalStages;
     }
 
     void GameOver()
@@ -80,7 +80,7 @@ public class SokobanGameManager : MonoBehaviour
         {
             currentStage++;
             PlayerPrefs.SetFloat("currentTime", currentTime); // 타이머 값 저장
-            SceneManager.LoadScene("Stage" + currentStage); // 다음 스테이지 로드
+            SceneManager.LoadScene("Puzzle3 Stage" + currentStage); // 다음 스테이지 로드
         }
         else
         {
@@ -90,7 +90,7 @@ public class SokobanGameManager : MonoBehaviour
 
     void GameClear()
     {
-        PlayerPrefs.SetFloat("currentTime", timeLimit);
+        GameManager.instance.SetPuzzleCleared(2); // 클리어 상태 저장
         Debug.Log("🎉 모든 스테이지 클리어!");
         SceneManager.LoadScene("GameClearScene"); // 게임 클리어 씬으로 이동
     }

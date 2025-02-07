@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Sokoban Tile_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 6e40ae4f0a0c1114a9c13c11d5be670c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 20e52e863732fe64b849e9eaa17a1c9c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
