@@ -12,16 +12,10 @@ public class MailInteraction : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 클릭 감지
+        if (Input.GetKeyDown(KeyCode.Space)) // 마우스 왼쪽 버튼 클릭 감지
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D hit = Physics2D.OverlapPoint(mousePos);
-
-            if (hit != null && hit.gameObject == gameObject) // 클릭한 오브젝트가 자신인지 확인
-            {
-                mailOpenObject.SetActive(true); // 열린 메일 활성화
-                StartCoroutine(WhiteOutEffect()); // 화이트 아웃 효과 실행
-            }
+            mailOpenObject.SetActive(true); // 열린 메일 활성화
+            StartCoroutine(WhiteOutEffect()); // 화이트 아웃 효과 실행
         }
     }
 

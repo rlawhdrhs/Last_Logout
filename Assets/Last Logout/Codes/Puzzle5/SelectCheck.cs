@@ -65,25 +65,19 @@ public class SelectCheck : MonoBehaviour
 
     IEnumerator Correct_anim()
     {
-        for (int i = 0; i < 2; i++)
-        {
-            O.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
-            O.SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-        }
+        O.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        O.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
 
         manager.QuizClear();
     }
 
     IEnumerator Wrong_anim()
     {
-        for (int i = 0; i < 2; i++)
-        {
-            X.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
-            X.SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-        }
+        X.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        X.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
     }
 }

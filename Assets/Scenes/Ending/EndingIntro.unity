@@ -604,8 +604,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBA54\uC77C\uC774 \uB3C4\uCC29\uD588\uC2B5\uB2C8\uB2E4. \n\n\uD655\uC778\uD558\uB824\uBA74
-    \uD074\uB9AD\uD558\uC138\uC694."
+  m_text: "\uBA54\uC77C\uC774 \uB3C4\uCC29\uD588\uC2B5\uB2C8\uB2E4. \n\n\uD655\uC778
+    : [Space]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a369d6e237cb8446b7e74a937246270, type: 2}
   m_sharedMaterial: {fileID: 2009833037580999875, guid: 6a369d6e237cb8446b7e74a937246270, type: 2}
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 7.2188582, y: 2.1964006, z: 6.5892, w: 1.6300656}
+  m_margin: {x: 1.036583, y: 2.1964006, z: 1.0052099, w: 1.6300656}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0

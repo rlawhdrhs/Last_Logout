@@ -5,6 +5,7 @@ using UnityEngine;
 public class QuizManager : MonoBehaviour
 {
     public GameObject[] questions; // 문제 오브젝트 배열 (1+1=? 같은 문제)
+    public GameObject[] answers;
     public SpriteRenderer[] choiceSprites; // 선택지 SpriteRenderer 배열 (2,3,4)
 
     public int[] correctAnswers; // 정답 인덱스 (예: [0, 2, 1] 등)
@@ -38,10 +39,16 @@ public class QuizManager : MonoBehaviour
     private IEnumerator WrongAnswerEffect(int index)
     {
         GameManager.ReduceLife(); // 틀리면 체력 감소
-        Sprite temp = choiceSprites[index].sprite;
-        choiceSprites[index].sprite = wrongSprite;
+                                  // 현재 스프라이트 색을 빨갛게 변경
+        SpriteRenderer spriteRenderer = choiceSprites[index].GetComponent<SpriteRenderer>();
+        Color originalColor = spriteRenderer.color;
+        spriteRenderer.color = Color.red; // 빨간색으로 변경
+
         yield return new WaitForSeconds(0.5f);
-        choiceSprites[index].sprite = temp;
+
+        // 원래 색으로 되돌리기
+        spriteRenderer.color = originalColor;
+
         isAnswering = false; // 다시 선택 가능하도록 변경
     }
 
@@ -68,6 +75,8 @@ public class QuizManager : MonoBehaviour
         for (int i = 0; i < questions.Length; i++)
         {
             questions[i].SetActive(i == index);
+            answers[i].SetActive(i == index);
         }
+
     }
 }

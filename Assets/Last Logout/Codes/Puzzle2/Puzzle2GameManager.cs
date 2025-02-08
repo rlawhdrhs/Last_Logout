@@ -13,12 +13,18 @@ public class Puzzle2GameManager : MonoBehaviour
     public Text timerText; // UI 타이머
     public Text stageText; // 스테이지 표시
 
-    public int currentQuiz = 1; // 현재 스테이지
-    public int totalQuiz = 3; // 총 스테이지 수
+    public int currentQuiz = 1;
+    public int totalQuiz = 4; 
 
     public SpriteRenderer[] hearts; // 하트 UI 배열 (3개)
     public Sprite fullHeart; // 꽉 찬 하트 스프라이트
     public Sprite emptyHeart; // 빈 하트 스프라이트
+    private string textcolor;
+    private string color;
+    private string red = "FF7F7F";
+    private string blue = "A1E5FF";
+    private string purple = "DF90FF";
+    private string green = "83FF7E";
 
     private int life = 3; // 초기 체력 3개
 
@@ -31,21 +37,43 @@ public class Puzzle2GameManager : MonoBehaviour
     void Update()
     {
         // 타이머 업데이트
-        if (currentTime > 0)
+        if (currentTime >= 0)
         {
             currentTime -= Time.deltaTime;
             UpdateUI();
         }
         else
         {
-            GameOver();
+            ReduceLife();
+            currentTime = timeLimit;
         }
     }
 
     void UpdateUI()
     {
         timerText.text = Mathf.CeilToInt(currentTime) + "";
-        stageText.text = currentQuiz + " / " + totalQuiz;
+        if (currentQuiz == 1)
+        {
+            textcolor = red;
+            color = "빨간색";
+        }
+        else if (currentQuiz == 2)
+        {
+            textcolor = green;
+            color = "초록색";
+        }
+        else if (currentQuiz == 3)
+        {
+            textcolor = purple;
+            color = "보라색";
+        }
+        else
+        {
+            textcolor = blue;
+            color = "파란색";
+        }
+
+        stageText.text = "※ <color=#"+textcolor+">"+color+"</color> 보안 문자를 올바르게 입력하세요. ("+currentQuiz + " / " + totalQuiz+")";
     }
 
     public void ReduceLife()
@@ -63,7 +91,6 @@ public class Puzzle2GameManager : MonoBehaviour
 
     void GameOver()
     {
-        Debug.Log("⏳ 제한 시간 종료! 게임 오버!");
         SceneManager.LoadScene("GameOverScene"); // 게임 오버 씬으로 이동
     }
 
@@ -81,7 +108,7 @@ public class Puzzle2GameManager : MonoBehaviour
 
     public void GameClear()
     {
-        Debug.Log("🎉 모든 스테이지 클리어!");
+        GameManager.instance.PuzzleClear[1] = true;
         SceneManager.LoadScene("GameClearScene"); // 게임 클리어 씬으로 이동
     }
 }

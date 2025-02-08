@@ -10,7 +10,7 @@ public class TypingEffect : MonoBehaviour
 
     void Start()
     {
-        dialogue = "메일이 도착했습니다.\n\n확인하려면 메일을 클릭하세요.";
+        dialogue = "메일이 도착했습니다.\n\n확인 : [Space]";
         StartCoroutine(Typing(dialogue));
     }
 
