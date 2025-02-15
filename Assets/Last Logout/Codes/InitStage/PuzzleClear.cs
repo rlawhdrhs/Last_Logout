@@ -14,7 +14,7 @@ public class PuzzleClear : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i <= 6; i++)
         {
             if (GameManager.instance.IsPuzzleCleared(i))
             {

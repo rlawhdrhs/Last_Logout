@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
 
     private SpriteRenderer[] hearts;          // 하트 Sprite Renderer 배열
     private SpriteRenderer playerSprite;      // 플레이어의 Sprite Renderer
-    private bool isInvincible = false;        // 무적 상태 여부
+    public bool isInvincible = false;        // 무적 상태 여부
     public float knockbackForce = 5f;         // 넉백 힘 (적에게 맞았을 때 뒤로 밀리는 힘)
 
     private Rigidbody2D rb;                   // 플레이어의 Rigidbody2D
@@ -53,10 +53,14 @@ public class PlayerHealth : MonoBehaviour
         {
             Vector2 knockbackDirection = (transform.position - enemy.transform.position).normalized; // 적과 반대 방향
             rb.velocity = knockbackDirection * knockbackForce;
-        }
 
-        // 맞았을 때 무적 & 피격 애니메이션 실행
-        StartCoroutine(InvincibilityCoroutine(enemy));
+            // 맞았을 때 무적 & 피격 애니메이션 실행
+            StartCoroutine(InvincibilityCoroutine(enemy));
+        }
+        else
+        {
+            StartCoroutine(Puzzle7InvincibilityEffect());
+        }
 
         // 체력이 0이 되면 게임 종료 처리
         if (currentHealth <= 0)
@@ -101,7 +105,23 @@ public class PlayerHealth : MonoBehaviour
             Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
         }
     }
+    IEnumerator Puzzle7InvincibilityEffect()
+    {
+        isInvincible = true;
+        playerSprite.color = Color.red; // 충돌 시 빨간색 변경
 
+        // 깜빡이기 효과
+        for (int i = 0; i < 5; i++)
+        {
+            playerSprite.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            playerSprite.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        playerSprite.color = Color.white; // 원래 색상 복구
+        isInvincible = false;
+    }
     void UpdateHealthUI()
     {
         for (int i = 0; i < hearts.Length; i++)

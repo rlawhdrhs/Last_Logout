@@ -15,6 +15,11 @@ public class Interactable : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
 
+    public Camera Camera;
+    public float minY = -10.8f;    // 카메라 최소 Y값 (아래쪽)
+    public float maxY = 0f;     // 카메라 최대 Y값 (위쪽)
+    public GameObject Scroll;
+    public SpriteRenderer scrollUp, scrollDown; 
     void Start()
     {
         if (!openSearch && gameObject.name == "SearchTrigger")
@@ -57,8 +62,20 @@ public class Interactable : MonoBehaviour
                     case "Puzzle5":
                         targetScene = "Puzzle5";
                         break;
+                    case "Puzzle6":
+                        targetScene = "Puzzle6";
+                        break;
+                    case "Puzzle7":
+                        targetScene = "Puzzle7";
+                        break;
                     case "Mail":
                         targetScene = "Mail";
+                        break;
+                    case "Up":
+                        targetScene = "Up";
+                        break;
+                    case "Down":
+                        targetScene = "Down";
                         break;
                     default:
                         targetScene = "DefaultScene";
@@ -129,11 +146,48 @@ public class Interactable : MonoBehaviour
                 openSearch = !openSearch;
                 search.SetActive(openSearch);
                 break;
+            case "Up":
+                ScrollUp();
+                StartCoroutine(BlinkEffect(scrollUp));
+                UpdateScroll();
+                break;
+            case "Down":
+                ScrollDown();
+                StartCoroutine(BlinkEffect(scrollDown));
+                UpdateScroll();
+                break;
             default:
                 cur = (int)interactName[6] - '1';
                 if (!GameManager.instance.IsPuzzleCleared(cur))
                     SceneManager.LoadScene(interactName + " Stage1");
                 break;
         }
+    }
+
+    void ScrollUp()
+    {
+        float newY = Mathf.Clamp(Camera.transform.position.y + 0.2f, minY, maxY);
+        Camera.transform.position = new Vector3(Camera.transform.position.x, newY, Camera.transform.position.z);
+    }
+    void ScrollDown()
+    {
+        float newY = Mathf.Clamp(Camera.transform.position.y - 0.2f, minY, maxY);
+        Camera.transform.position = new Vector3(Camera.transform.position.x, newY, Camera.transform.position.z);
+    }
+    void UpdateScroll()
+    {
+        float diff = maxY - minY; // 카메라가 이동할 수 있는 최대 범위
+        float percentage = (Camera.transform.position.y - minY) / diff; // 현재 카메라 위치의 퍼센트 (0 ~ 1)
+        float newY = Mathf.Lerp(-2.8f, 2.35f, percentage); // 스크롤바 이동 가능 범위에 맞춰 변환
+        Scroll.transform.position = new Vector3(Scroll.transform.position.x, newY, Scroll.transform.position.z);
+    }
+    IEnumerator BlinkEffect(SpriteRenderer sprite)
+    {
+        Color color = sprite.color;           // 현재 색상 가져오기
+        color.a = 0.3f;               // alpha 값을 0~1 사이로 제한 (0 = 완전 투명, 1 = 불투명)
+        spriteRenderer.color = color;
+        yield return new WaitForSeconds(0.1f); // 0.1초 기다림
+        color.a = 0;
+        spriteRenderer.color = color;
     }
 }

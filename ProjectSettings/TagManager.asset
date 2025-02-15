@@ -12,6 +12,7 @@ TagManager:
   - Goal
   - Choice
   - Wall
+  - Id
   layers:
   - Default
   - TransparentFX
