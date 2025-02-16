@@ -90,7 +90,10 @@ public class SokobanGameManager : MonoBehaviour
 
     void GameClear()
     {
-        GameManager.instance.SetPuzzleCleared(2); // 클리어 상태 저장
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.SetPuzzleCleared(2); // 클리어 상태 저장
+        }
         Debug.Log("🎉 모든 스테이지 클리어!");
         SceneManager.LoadScene("GameClearScene"); // 게임 클리어 씬으로 이동
     }

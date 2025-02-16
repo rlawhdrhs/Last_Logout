@@ -28,6 +28,10 @@ public class EndingManager : MonoBehaviour
                         endingNumber++;
                     }
                 }
+                else if(SubClear(PuzzleClear))
+                {
+                    endingNumber++;
+                }
             }
         }
     }
@@ -51,7 +55,7 @@ public class EndingManager : MonoBehaviour
     }
     public bool SubClear(bool[] PuzzleClear)
     {
-        if (PuzzleClear[5] && PuzzleClear[6])       //¼­ºê ÀÇ·Ú
+        if (PuzzleClear[6])       //¼­ºê ÀÇ·Ú
             return true;
         return false;
     }

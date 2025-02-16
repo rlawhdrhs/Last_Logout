@@ -12,8 +12,9 @@ public class EndingShortcut : MonoBehaviour
     private bool isHolding = false;
 
     public SpriteRenderer whiteOutSprite; // 화이트 아웃 효과를 줄 스프라이트
-    public float fadeSpeed = 1.5f; // 페이드 속도
+    public float fadeSpeed = 1f; // 페이드 속도
     private float alpha = 0f;
+    private bool isTransitioning = false; // 중복 실행 방지 변수
 
     void Update()
     {
@@ -44,13 +45,17 @@ public class EndingShortcut : MonoBehaviour
 
     IEnumerator WhiteOutEffect()
     {
+        if (isTransitioning) yield break; // 이미 실행 중이면 종료
+        isTransitioning = true; // 실행 중 상태로 변경
+
         while (alpha < 1f)
         {
-            alpha += Time.deltaTime * fadeSpeed;
+            alpha += Time.deltaTime * fadeSpeed* 5;
             whiteOutSprite.color = new Color(1, 1, 1, alpha);
-            yield return null;
+            yield return null; // 다음 프레임까지 기다림
         }
-        SceneManager.LoadScene("EndingIntro"); // 엔딩 씬으로 이동
+        // 씬을 비동기적으로 로드
+        SceneManager.LoadSceneAsync("EndingIntro");
     }
 }
 

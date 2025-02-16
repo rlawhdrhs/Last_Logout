@@ -9,16 +9,26 @@ public class MailInteraction : MonoBehaviour
     public float fadeSpeed = 1.5f; // 페이드 속도
     public EndingManager endingManager;
     private float alpha = 0f;
+    private bool isInputBlocked = true; // 입력 차단 변수
+    void Start()
+    {
+        StartCoroutine(StopSec()); // 씬이 시작되면 2초 후에 입력 활성화
+    }
 
     void Update()
     {
+        if (isInputBlocked) return; // 입력 차단
         if (Input.GetKeyDown(KeyCode.Space)) // 마우스 왼쪽 버튼 클릭 감지
         {
             mailOpenObject.SetActive(true); // 열린 메일 활성화
             StartCoroutine(WhiteOutEffect()); // 화이트 아웃 효과 실행
         }
     }
-
+    IEnumerator StopSec()
+    {
+        yield return new WaitForSeconds(2f);
+        isInputBlocked = false; // 2초 후 입력 허용
+    }
     IEnumerator WhiteOutEffect()
     {
         while (alpha < 1f)

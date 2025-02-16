@@ -108,7 +108,8 @@ public class Puzzle2GameManager : MonoBehaviour
 
     public void GameClear()
     {
-        GameManager.instance.PuzzleClear[1] = true;
+        if (GameManager.instance != null)
+            GameManager.instance.PuzzleClear[1] = true;
         SceneManager.LoadScene("GameClearScene"); // 게임 클리어 씬으로 이동
     }
 }

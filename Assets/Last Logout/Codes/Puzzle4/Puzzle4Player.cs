@@ -9,6 +9,12 @@ public class Puzzle4Player : MonoBehaviour
     public Text inputText; // 플레이어 입력을 표시할 UI
     private List<string> playerInputs = new List<string>(); // 입력한 키 저장
 
+    public Puzzle4WallManager manager;
+    public int ClearPoint = 10;
+    public int PointCount = 0;
+
+    public TMP_Text Ui;
+
     void Update()
     {
         if (Input.anyKeyDown)
@@ -34,10 +40,17 @@ public class Puzzle4Player : MonoBehaviour
                     {
                         Destroy(closestWall.gameObject);
                         playerInputs.Clear();
+                        PointCount++;
                         inputText.text = "";
                     }
                 }
             }
+        }
+        UpdateUi();
+
+        if (PointCount == ClearPoint) 
+        {
+            manager.GameClear();
         }
     }
 
@@ -73,6 +86,10 @@ public class Puzzle4Player : MonoBehaviour
             }
         }
         return closest;
+    }
+    void UpdateUi()
+    {
+        Ui.text = PointCount + "/" + ClearPoint;
     }
 
     public void ClearInput()

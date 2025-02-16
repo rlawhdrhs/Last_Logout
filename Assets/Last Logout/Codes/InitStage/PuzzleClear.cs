@@ -22,14 +22,12 @@ public class PuzzleClear : MonoBehaviour
                     QuestNum = 0;
                 else if (i == 3 || i == 1)  //메인 2
                     QuestNum = 1;
-                else if (i == 5)            //서브 1
-                    QuestNum = 2;
                 else if (i == 6)            //서브 2
-                    QuestNum = 3;
+                    QuestNum = 2;
                 else if (i == 4)            //히든
-                    QuestNum = 4;
+                    QuestNum = 3;
                 puzzle[QuestNum].sprite = clearedSprite;
-                if (QuestNum < 4)
+                if (QuestNum < 3)
                     missionList[QuestNum].fontStyle = FontStyles.Strikethrough;
                 else
                 {

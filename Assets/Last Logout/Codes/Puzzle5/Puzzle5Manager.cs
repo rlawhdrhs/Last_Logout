@@ -152,7 +152,8 @@ public class Puzzle5Manager : MonoBehaviour
     {
         Destroy(gameObject);
         SceneManager.LoadScene("GameClearScene");
-        GameManager.instance.PuzzleClear[4] = true;
+        if (GameManager.instance != null)
+            GameManager.instance.PuzzleClear[4] = true;
     }
 
     public void QuizClear()
