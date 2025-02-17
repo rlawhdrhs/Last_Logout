@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     private Transform player;     // 플레이어 위치 참조
 
     public GameObject potionPrefab; // 포션 프리팹
-    public float dropChance = 0.3f; // 30% 확률로 드랍
     public Puzzle1Manager puzzle1Manager;
     Animator anim;
     Rigidbody2D rigid;
@@ -76,9 +75,8 @@ public class Enemy : MonoBehaviour
     }
     void DropPotion()
     {
-        if (potionPrefab != null && Random.value < dropChance && puzzle1Manager.drop == false) // 30% 확률
+        if (potionPrefab != null && puzzle1Manager.enemyCount == 45)
         {
-            puzzle1Manager.drop = true;
             Instantiate(potionPrefab, transform.position, Quaternion.identity);
         }
     }

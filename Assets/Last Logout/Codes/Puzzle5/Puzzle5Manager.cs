@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Puzzle5Manager : MonoBehaviour
 {
-    public Puzzle5Quiz[] puzzle5Quizs = new Puzzle5Quiz[4];
+    public Puzzle5Quiz[] puzzle5Quizs = new Puzzle5Quiz[5];
     public int currentQuiz = 0;
     public float timeLimit = 10f; // 제한 시간 (초)
     public float currentTime;
@@ -89,17 +89,30 @@ public class Puzzle5Manager : MonoBehaviour
 
     void CheckQuiz()
     {
-        if (!puzzle5Quizs[currentQuiz].movable)
+        if(currentQuiz >= puzzle5Quizs.Length)
         {
-            if (currentQuiz < puzzle5Quizs.Length - 1)
+            StartCoroutine(WaitNextScene("GameClearScene"));
+            return;
+        }
+        else if (!puzzle5Quizs[currentQuiz].movable)
+        {
+            if (currentQuiz < puzzle5Quizs.Length)
             {
                 if ((puzzle5Quizs[currentQuiz].correctAnswer))
                 {
-                    StartCoroutine(WaitNextScene("Puzzle5 Stage2"));
+                    int stage = 2;
+                    if (currentQuiz == 4)
+                        stage = 3;
+                    else if (currentQuiz == 9)
+                        stage = 4;
+                    else if (currentQuiz == 11)
+                        stage = 5;
+                    StartCoroutine(WaitNextScene("Puzzle5 Stage" + stage));
                     openSelectPuzzle = true;
                     timer.SetActive(false);
                 }
-                currentQuiz++;
+                if (currentQuiz < puzzle5Quizs.Length - 1)
+                    currentQuiz++;
                 puzzle5Quizs[currentQuiz].movable = true;
                 currentTime = timeLimit;
             }
@@ -160,7 +173,7 @@ public class Puzzle5Manager : MonoBehaviour
     {
         openSelectPuzzle = false;
         SceneManager.LoadScene("Puzzle5 Stage1");
-        for (int i = 0; i < puzzle5Quizs.Length; i++)
+        for (int i = currentQuiz; i < puzzle5Quizs.Length; i++)
         {
             puzzle5Quizs[i].gameObject.SetActive(true);
         }
@@ -168,13 +181,13 @@ public class Puzzle5Manager : MonoBehaviour
     }
     IEnumerator WaitNextScene(string sceneName)
     {
-        yield return new WaitForSeconds(1.5f);
         if (sceneName == "GameClearScene")
             GameClear();
         else if (sceneName == "GameOverScene")
             GameOver();
         else
         {
+            yield return new WaitForSeconds(1.5f);
             for (int i = 0; i < puzzle5Quizs.Length; i++)
             {
                 puzzle5Quizs[i].gameObject.SetActive(false);

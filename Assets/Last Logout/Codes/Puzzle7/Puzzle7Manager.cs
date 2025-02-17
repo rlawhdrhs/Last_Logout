@@ -13,7 +13,7 @@ public class Puzzle7Manager : MonoBehaviour
     public TMP_Text clearText;
     public SpriteRenderer whiteOutSprite; // 화이트 아웃 효과를 줄 스프라이트
     public Puzzle7Player player;
-    
+    public Bomb bomb;
 
     void Update()
     {
@@ -32,7 +32,7 @@ public class Puzzle7Manager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(GameClear());
+            GameClear();
         }
     }
     IEnumerator GameOver()
@@ -51,21 +51,9 @@ public class Puzzle7Manager : MonoBehaviour
         }
         SceneManager.LoadScene("GameOverScene"); // 게임 오버 씬으로 이동
     }
-    IEnumerator GameClear()
+    void GameClear()
     {
         clearText.text = "클리어!";
-        float fadeSpeed = 1.5f; // 페이드 속도
-        float alpha = 0f;
-        while (alpha < 1.5f)
-        {
-            alpha += Time.deltaTime * fadeSpeed;
-            whiteOutSprite.color = new Color(1, 1, 1, alpha);
-            yield return null;
-        }
-        if (GameManager.instance != null)
-        {
-            GameManager.instance.PuzzleClear[6] = true;
-        }
-        SceneManager.LoadScene("GameClearScene"); // 게임 클리어 씬으로 이동
+        StartCoroutine(bomb.BombAnim());
     }
 }

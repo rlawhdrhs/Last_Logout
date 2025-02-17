@@ -45,16 +45,20 @@ public class EndingShortcut : MonoBehaviour
 
     IEnumerator WhiteOutEffect()
     {
+        if (gameObject.name == "Exit")
+        {
+            Application.Quit();
+            yield break;
+        }
         if (isTransitioning) yield break; // 이미 실행 중이면 종료
         isTransitioning = true; // 실행 중 상태로 변경
 
         while (alpha < 1f)
         {
-            alpha += Time.deltaTime * fadeSpeed* 5;
+            alpha += Time.deltaTime * fadeSpeed * 5;
             whiteOutSprite.color = new Color(1, 1, 1, alpha);
             yield return null; // 다음 프레임까지 기다림
         }
-        // 씬을 비동기적으로 로드
         SceneManager.LoadSceneAsync("EndingIntro");
     }
 }

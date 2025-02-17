@@ -134,11 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b974a6bf94b321048a0f681b6b0ff1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
-  health: 5
+  speed: 2
+  health: 3
   damage: 1
   potionPrefab: {fileID: 7007324097262066076, guid: 570fc85eda389b44b96e2db4b63ce02c, type: 3}
-  dropChance: 1
+  puzzle1Manager: {fileID: 0}
 --- !u!114 &7141523736036203007
 MonoBehaviour:
   m_ObjectHideFlags: 0

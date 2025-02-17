@@ -8,7 +8,7 @@ public class CollectPersonalId : MonoBehaviour
     public float floatHeight = 0.2f; // 떠다니는 높이
     private float timeOffset; // 랜덤한 시작 지점
     public Puzzle7Manager manager;
-
+    public bool isCollected = false;
     void Start()
     {
         timeOffset = Random.Range(0f, 2f); // 랜덤한 시간 차이를 줘서 여러 개가 같은 타이밍에 움직이지 않게 함
@@ -22,9 +22,11 @@ public class CollectPersonalId : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") && !isCollected)
         {
-            manager.collectPI++;
+            gameObject.SetActive(false); // 추가 충돌 방지
+            isCollected = true;
+            manager.collectPI += 1;
             Destroy(gameObject);
         }
     }

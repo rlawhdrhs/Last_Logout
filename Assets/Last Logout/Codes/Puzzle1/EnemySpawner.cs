@@ -8,26 +8,28 @@ public class EnemySpawner : MonoBehaviour
     public float spawnInterval = 3f; // 利 积己 埃拜
     public Transform[] spawnPoints; // 利 积己 困摹 硅凯
     private int cnt = 0;
-    public int MaxSpawn = 5;
+    public int MaxSpawn = 75;
 
-    private bool canSpawn = true; // 利 积己 咯何 力绢
+    public bool canSpawn = true; // 利 积己 咯何 力绢
 
     void Start()
     {
-        // 利 积己 厚劝己拳 惑怕肺 矫累
+        // 利 积己 劝己拳 惑怕肺 矫累
         canSpawn = true;
     }
 
     void Update()
     {
         // 利 积己捞 劝己拳登菌阑 锭父 角青
+        /*
         if (canSpawn && !IsInvoking(nameof(SpawnEnemy)))
         {
             InvokeRepeating(nameof(SpawnEnemy), 0f, spawnInterval);
         }
+        */
     }
 
-    void SpawnEnemy()
+    public void SpawnEnemy()
     {
         if (!canSpawn) return;
 
@@ -41,7 +43,16 @@ public class EnemySpawner : MonoBehaviour
             CancelInvoke(nameof(SpawnEnemy));
         }
     }
+    public IEnumerator SpawnWave(int enemyCount, float spawnInterval)
+    {
+        for (int i = 0; i < enemyCount; i++)
+        {
+            if (!canSpawn) yield break;
 
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
     public void ActivateSpawner()
     {
         // 利 积己 劝己拳

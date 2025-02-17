@@ -10,9 +10,11 @@ public class Player : MonoBehaviour
     public SpriteRenderer scroll;
     public GameObject MissionList;
     public GameObject CheckWindow;
+    public GameObject ExitWindow;
     // Start is called before the first frame update
     public bool movable = true;
     public bool Check_open = false;
+    public bool Exit_open = false;
     Rigidbody2D rigid;
     SpriteRenderer spriter;
     Animator anim;
@@ -30,6 +32,10 @@ public class Player : MonoBehaviour
         {
             MissionList.SetActive(false);
         }
+        if (CheckWindow != null) 
+        {
+            ExitWindow.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -39,8 +45,24 @@ public class Player : MonoBehaviour
         {
             inputVec.x = Input.GetAxisRaw("Horizontal");
             inputVec.y = Input.GetAxisRaw("Vertical");
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!Exit_open) 
+                {
+                    Exit_open = true;
+                    ExitWindow.SetActive(true);
+                    movable = false;
+                }
+                else
+                {
+                    Exit_open = false;
+                    ExitWindow.SetActive(false);
+                    movable = true;
+                }
+            }
         }
-        if (MissionList != null)
+        if (MissionList != null && !Exit_open)
         {
             if (Input.GetKeyDown(KeyCode.F))     //ÀÇ·ÚÁö ÄÑ±â
             {
