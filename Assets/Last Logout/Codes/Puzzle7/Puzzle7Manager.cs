@@ -49,6 +49,8 @@ public class Puzzle7Manager : MonoBehaviour
             whiteOutSprite.color = new Color(1, 1, 1, alpha);
             yield return null;
         }
+        if (GameManager.instance != null)
+            GameManager.instance.PuzzleFail[6] = true;
         SceneManager.LoadScene("GameOverScene"); // 게임 오버 씬으로 이동
     }
     void GameClear()

@@ -25,6 +25,8 @@ public class SelectCheck : MonoBehaviour
     private bool flowanim = false;
     public int cnt;
     public TMP_Text collectCnt;
+
+    public PlaySound sound;
     void Start()
     {
         manager = FindObjectOfType<Puzzle5Manager>();
@@ -87,6 +89,7 @@ public class SelectCheck : MonoBehaviour
 
     IEnumerator Correct_anim()
     {
+        sound.Play();
         flowanim = true;
         player.movable = false;
         //정답 o 출력

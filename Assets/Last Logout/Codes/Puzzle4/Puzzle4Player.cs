@@ -12,7 +12,8 @@ public class Puzzle4Player : MonoBehaviour
     public Puzzle4WallManager manager;
     public int ClearPoint = 10;
     public int PointCount = 0;
-
+    public PlaySound delete;
+    public PlaySound input;
     public TMP_Text Ui;
 
     void Update()
@@ -31,6 +32,7 @@ public class Puzzle4Player : MonoBehaviour
                     // 입력한 키가 문제에 포함되어 있으면 추가
                     if (playerInputs.Count < keyArray.Length && pressedKey == keyArray[playerInputs.Count])
                     {
+                        input.Play();
                         playerInputs.Add(pressedKey);
                         UpdateDisplay();
                     }
@@ -38,6 +40,7 @@ public class Puzzle4Player : MonoBehaviour
                     // 모든 키를 입력하면 벽 제거
                     if (playerInputs.Count == keyArray.Length)
                     {
+                        delete.Play();
                         Destroy(closestWall.gameObject);
                         playerInputs.Clear();
                         PointCount++;
@@ -48,7 +51,7 @@ public class Puzzle4Player : MonoBehaviour
         }
         UpdateUi();
 
-        if (PointCount == ClearPoint) 
+        if (PointCount == ClearPoint)
         {
             manager.GameClear();
         }
@@ -56,10 +59,10 @@ public class Puzzle4Player : MonoBehaviour
 
     string GetPressedKey()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) return "←";
-        if (Input.GetKeyDown(KeyCode.RightArrow)) return "→";
-        if (Input.GetKeyDown(KeyCode.UpArrow)) return "↑";
-        if (Input.GetKeyDown(KeyCode.DownArrow)) return "↓";
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) return "←";
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) return "→";
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) return "↑";
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) return "↓";
         return "";
     }
 
@@ -87,6 +90,7 @@ public class Puzzle4Player : MonoBehaviour
         }
         return closest;
     }
+
     void UpdateUi()
     {
         Ui.text = PointCount + "/" + ClearPoint;

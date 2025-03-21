@@ -16,9 +16,10 @@ public class PlayerHealth : MonoBehaviour
     private SpriteRenderer playerSprite;      // 플레이어의 Sprite Renderer
     public bool isInvincible = false;        // 무적 상태 여부
     public float knockbackForce = 5f;         // 넉백 힘 (적에게 맞았을 때 뒤로 밀리는 힘)
-
     private Rigidbody2D rb;                   // 플레이어의 Rigidbody2D
 
+    public PlaySound reduceHP;
+    public PlaySound heal;
     void Start()
     {
         // 현재 체력을 최대 체력으로 초기화
@@ -35,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
 
         // 하트 UI 초기화
         UpdateHealthUI();
+        GameObject g = GameObject.Find("reduceHP");
+        reduceHP = g.GetComponent<PlaySound>();
     }
 
     public void TakeDamage(int damage, GameObject enemy)
@@ -42,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         if (isInvincible) return; // 무적 상태일 때는 피해를 받지 않음
 
         // 체력 감소
+        reduceHP.Play();
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
@@ -132,6 +136,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal(int amount)
     {
+        if (heal != null)
+            heal.Play();
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
@@ -139,6 +145,18 @@ public class PlayerHealth : MonoBehaviour
 
     void GameOver()
     {
+        if (GameManager.instance != null) 
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if(sceneName == "Puzzle1 Stage1")
+            {
+                GameManager.instance.PuzzleFail[0] = true;
+            }
+            else if(sceneName == "Puzzle7 Stage1")
+            {
+                GameManager.instance.PuzzleFail[6] = true;
+            }
+        }
         Debug.Log("Game Over!");
         SceneManager.LoadScene("GameOverScene");
     }

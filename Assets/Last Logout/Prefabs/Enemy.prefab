@@ -137,6 +137,7 @@ MonoBehaviour:
   speed: 2
   health: 3
   damage: 1
+  enemy: {fileID: 0}
   potionPrefab: {fileID: 7007324097262066076, guid: 570fc85eda389b44b96e2db4b63ce02c, type: 3}
   puzzle1Manager: {fileID: 0}
 --- !u!114 &7141523736036203007

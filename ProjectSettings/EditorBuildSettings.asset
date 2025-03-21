@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 988dbf5cd7bc1174c97e15fc9a334d98
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: a8cac97e0605d0f4488eef5f8bccd0a7
   - enabled: 1
@@ -86,4 +89,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Puzzle5/Puzzle5 Stage5.unity
     guid: 51b03647452fc394882aac9365bde320
+  - enabled: 1
+    path: Assets/Scenes/Map/SNSClear.unity
+    guid: b20061ac8204e844f8ca2e44c87ec23f
+  - enabled: 1
+    path: Assets/Scenes/Map/SNS.unity
+    guid: 266009ad02e513549894231b06036304
+  - enabled: 1
+    path: Assets/Scenes/Map/SNS Stage1.unity
+    guid: 96411ec1961d73d48ac2ec4e4ceafaa3
+  - enabled: 1
+    path: Assets/Scenes/Map/SNSClearAll.unity
+    guid: 84846207fc2d15f46bc6fe2c13726a52
   m_configObjects: {}

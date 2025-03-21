@@ -26,6 +26,8 @@ public class Puzzle2GameManager : MonoBehaviour
     private string purple = "DF90FF";
     private string green = "83FF7E";
 
+    public PlaySound reduceHP;
+
     private int life = 3; // 초기 체력 3개
 
     void Start()
@@ -79,7 +81,7 @@ public class Puzzle2GameManager : MonoBehaviour
     public void ReduceLife()
     {
         if (life <= 0) return; // 체력이 0이면 실행 X
-
+        reduceHP.Play();
         life--; // 체력 감소
         hearts[life].sprite = emptyHeart; // 해당 하트를 빈 하트로 변경
 
@@ -91,6 +93,8 @@ public class Puzzle2GameManager : MonoBehaviour
 
     void GameOver()
     {
+        if (GameManager.instance != null)
+            GameManager.instance.PuzzleFail[1] = true;
         SceneManager.LoadScene("GameOverScene"); // 게임 오버 씬으로 이동
     }
 

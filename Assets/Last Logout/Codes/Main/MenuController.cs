@@ -25,9 +25,14 @@ public class MenuController : MonoBehaviour
     public AudioSource bgmSource; // 배경음악 AudioSource
     public AudioSource sfxSource; // 효과음 AudioSource
     public AudioClip selectSound; // Spacebar 누를 때 재생할 효과음
+    public bool movable = false;
+
+    public AudioSource audioSource;  // 사운드 플레이어
+    public AudioClip moveSound;      // 이동 효과음
 
     void Start()
     {
+        StartCoroutine(DisableInputForSeconds(1f));
         UpdateCursorPosition();
         UpdateMenuSprites();
         optionWindow.SetActive(false);
@@ -37,6 +42,8 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
+        if (!movable)
+            return;
         bool moved = false;
 
         if (option_open)
@@ -62,6 +69,7 @@ public class MenuController : MonoBehaviour
                     sfxVolume = Mathf.Max(0, sfxVolume - 1);
 
                 ApplyVolume(); // 볼륨 적용
+                PlaySound();
             }
 
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -72,6 +80,7 @@ public class MenuController : MonoBehaviour
                     sfxVolume = Mathf.Min(10, sfxVolume + 1);
 
                 ApplyVolume(); // 볼륨 적용
+                PlaySound();
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -205,5 +214,23 @@ public class MenuController : MonoBehaviour
     {
         bgmSource.volume = bgmVolume / 10.0f; // 0~10을 0~1 범위로 변환
         sfxSource.volume = sfxVolume / 50.0f;
+        audioSource.volume = sfxVolume / 50.0f;
     }
+
+    IEnumerator DisableInputForSeconds(float seconds)
+    {
+        movable = false; // 입력 막기
+        Input.ResetInputAxes(); // 키 입력 초기화
+        yield return new WaitForSeconds(seconds); // 지정된 시간(1초) 대기
+        movable = true; // 입력 가능하게 변경
+    }
+
+    void PlaySound()
+    {
+        if (moveSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(moveSound);  // 효과음 1회 재생
+        }
+    }
+
 }

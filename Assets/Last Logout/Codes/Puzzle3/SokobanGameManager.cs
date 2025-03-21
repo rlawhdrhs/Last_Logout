@@ -13,7 +13,7 @@ public class SokobanGameManager : MonoBehaviour
 
     public Text timerText; // UI 타이머
     public Text stageText; // 스테이지 표시
-
+    public PlaySound reset;
     public int currentStage = 1; // 현재 스테이지
     public int totalStages = 4; // 총 스테이지 수
 
@@ -48,12 +48,14 @@ public class SokobanGameManager : MonoBehaviour
         // 리셋키 (스페이스바)
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            RestartStage();
+            StartCoroutine(RestartStage());
         }
     }
 
-    void RestartStage()
+    IEnumerator RestartStage()
     {
+        reset.Play();
+        yield return new WaitForSeconds(0.5f);
         PlayerPrefs.SetFloat("currentTime", currentTime); // 현재 타이머 값 저장
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 현재 씬 다시 로드
     }
@@ -69,7 +71,8 @@ public class SokobanGameManager : MonoBehaviour
 
     void GameOver()
     {
-        Debug.Log("⏳ 제한 시간 종료! 게임 오버!");
+        if (GameManager.instance != null)
+            GameManager.instance.PuzzleFail[2] = true;
         PlayerPrefs.SetFloat("currentTime", timeLimit);
         SceneManager.LoadScene("GameOverScene"); // 게임 오버 씬으로 이동
     }
@@ -94,7 +97,6 @@ public class SokobanGameManager : MonoBehaviour
         {
             GameManager.instance.SetPuzzleCleared(2); // 클리어 상태 저장
         }
-        Debug.Log("🎉 모든 스테이지 클리어!");
         SceneManager.LoadScene("GameClearScene"); // 게임 클리어 씬으로 이동
     }
 }

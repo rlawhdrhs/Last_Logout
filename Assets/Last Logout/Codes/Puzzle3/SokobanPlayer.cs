@@ -8,7 +8,8 @@ public class SokobanPlayer : MonoBehaviour
     public Tilemap tilemapFloor;  // 바닥 타일맵
     public Tilemap tilemapWalls;  // 벽 타일맵
     public float moveDistance = 16f; // 한 번에 이동할 거리 (16픽셀)
-
+    public PlaySound move;
+    public PlaySound pull;
     private Vector3Int currentCell; // 현재 위치 (타일 좌표)
 
     void Start()
@@ -41,6 +42,7 @@ public class SokobanPlayer : MonoBehaviour
         if (fileCollider != null && fileCollider.CompareTag("File"))
         {
             Sokobanfile file = fileCollider.GetComponent<Sokobanfile>();
+            pull.Play();
             if (file != null && file.TryMove(direction))
             {
                 // 파일 이동 성공 시 플레이어 이동
@@ -52,6 +54,7 @@ public class SokobanPlayer : MonoBehaviour
         }
         else
         {
+            move.Play();
             // 파일 이동 성공 시 플레이어 이동
             currentCell = targetCell;
             Vector3 newPosition = tilemapFloor.GetCellCenterWorld(currentCell);

@@ -9,14 +9,17 @@ public class Interactable : MonoBehaviour
     private bool isPlayerNearby = false;
     private string targetScene;
     private bool openSearch = false;
+    private bool openMail = false;
     public GameObject search;
     public int cur;
-
+    public PlaySound interact;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     void Start()
     {
-        if (!openSearch && gameObject.name == "SearchTrigger")
+        if(gameObject.name =="Puzzle5" && (GameManager.instance.PuzzleFail[4] == true || GameManager.instance.PuzzleClear[4] == true))
+            Destroy(gameObject);
+        if (!openSearch && (gameObject.name == "SearchTrigger" || gameObject.name == "Mail"))
         {
             search.SetActive(false);
         }
@@ -26,6 +29,8 @@ public class Interactable : MonoBehaviour
         {
             originalColor = spriteRenderer.color; // 원래 색 저장
         }
+        GameObject g = GameObject.Find("InteractSound");
+        interact = g.GetComponent<PlaySound>();
     }
 
     void Update()
@@ -36,6 +41,8 @@ public class Interactable : MonoBehaviour
             {
                 string portalName = gameObject.name; // 현재 포탈 오브젝트 이름 가져오기
                 Debug.Log(portalName);
+                if (interact != null)
+                    interact.Play();
                 switch (portalName)
                 {
                     case "SearchTrigger":
@@ -64,6 +71,12 @@ public class Interactable : MonoBehaviour
                         break;
                     case "Mail":
                         targetScene = "Mail";
+                        break;
+                    case "SNS":
+                        targetScene = "SNS";
+                        break;
+                    case "GameScene":
+                        targetScene = "GameScene";
                         break;
                     default:
                         targetScene = "DefaultScene";
@@ -134,10 +147,45 @@ public class Interactable : MonoBehaviour
                 openSearch = !openSearch;
                 search.SetActive(openSearch);
                 break;
+            case "Mail":
+                if (GameManager.instance.PuzzleClear[0] || GameManager.instance.PuzzleClear[2])
+                {
+                    openMail = !openMail;
+                    search.SetActive(openMail);
+                }
+                break;
+            case "SNS":
+                if ((GameManager.instance.PuzzleClear[0] || GameManager.instance.PuzzleClear[2]) && !GameManager.instance.PuzzleClear[1] && !GameManager.instance.PuzzleClear[3])
+                {
+                    SceneManager.LoadScene("SNSClear");
+                }
+                else if (GameManager.instance.PuzzleClear[1] || GameManager.instance.PuzzleClear[3])
+                {
+                    SceneManager.LoadScene(interactName + "ClearAll");
+                }
+                else if (GameManager.instance.PuzzleFail[0] == true && GameManager.instance.PuzzleFail[2] == false)
+                {
+                    SceneManager.LoadScene(interactName + " Stage1");
+                }
+                else
+                {
+                    SceneManager.LoadScene(interactName);
+                }
+
+                break;
+            case "GameScene":
+                if (GameManager.instance != null)
+                    GameManager.instance.moveToPortal = true;
+                GameManager.instance.beforeMap = "GameScene";
+                SceneManager.LoadScene(interactName);
+                break;
             default:
                 cur = (int)interactName[6] - '1';
                 if (!GameManager.instance.IsPuzzleCleared(cur))
+                {
                     SceneManager.LoadScene(interactName + " Stage1");
+                    GameManager.instance.currentPuzzle = cur + 1;
+                }
                 break;
         }
     }

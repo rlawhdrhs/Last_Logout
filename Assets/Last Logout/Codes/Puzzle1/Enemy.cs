@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
     public int health = 3;        // 적 체력
     public int damage = 1;        // 플레이어에게 가할 피해량
     private Transform player;     // 플레이어 위치 참조
-
     public GameObject potionPrefab; // 포션 프리팹
     public Puzzle1Manager puzzle1Manager;
     Animator anim;
@@ -59,6 +58,9 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            GameObject enemy = GameObject.Find("enemyS");
+            PlaySound sound = enemy.GetComponent<PlaySound>();
+            sound.Play();
             DropPotion();
             anim.SetBool("Dead", true);
             Puzzle1Manager.instance.DecreaseEnemyCount(); // 적이 죽으면 개수 감소

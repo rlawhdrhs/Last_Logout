@@ -9,10 +9,11 @@ public class PuzzleClear : MonoBehaviour
     private int QuestNum;
     public GameObject hiddenQuest_hide;
     public GameObject hiddenQuest_open;
+    
 
 
 
-    private void Start()
+    private void Update()
     {
         for (int i = 0; i <= 6; i++)
         {
@@ -35,6 +36,12 @@ public class PuzzleClear : MonoBehaviour
                     hiddenQuest_open.SetActive(true);
                 }
             }
+        }
+        if (GameManager.instance.PuzzleFail[4])
+        {
+            puzzle[3].color = new Color(1, 1, 1, 0);
+            hiddenQuest_hide.SetActive(false);
+            hiddenQuest_open.SetActive(false);
         }
     }
 }

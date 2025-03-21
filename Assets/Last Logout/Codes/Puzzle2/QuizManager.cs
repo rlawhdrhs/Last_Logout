@@ -15,6 +15,7 @@ public class QuizManager : MonoBehaviour
 
     private int currentQuestion = 0;
     private bool isAnswering = false;
+    public PlaySound sound;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class QuizManager : MonoBehaviour
 
         if (selectedIndex == correctAnswers[currentQuestion])
         {
+            sound.Play();
             NextQuestion();
         }
         else

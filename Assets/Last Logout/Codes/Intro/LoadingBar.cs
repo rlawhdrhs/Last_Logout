@@ -10,7 +10,7 @@ public class LoadingBar : MonoBehaviour
     public GameObject player;
     private int currentStep = 0;
     public GameObject screen_1, screen_2;
-
+    public PlaySound load;
     private void Start()
     {
         // 처음 시작할 때 모든 로딩 스프라이트를 숨김
@@ -37,6 +37,7 @@ public class LoadingBar : MonoBehaviour
         while (currentStep < loadingStages.Length)
         {
             loadingStages[currentStep].SetActive(true); // 하나씩 활성화
+            load.Play();
             currentStep++;
             if (player != null && currentStep == loadingStages.Length)
             {

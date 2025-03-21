@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.U2D;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class DeleteUi : MonoBehaviour
 {
     private bool isPlayerNearby = false;
     public GameObject deleteWindow;
+    public SNSManager manager;
     SpriteRenderer sprite;
     Color originColor;
+
 
     private void Start()
     {
@@ -34,6 +35,11 @@ public class DeleteUi : MonoBehaviour
                         break;
                     case "Ok":
                         deleteWindow.SetActive(false);
+                        manager.Loading();
+                        break;
+                    case "Ok_Puzzle3":
+                        deleteWindow.SetActive(false);
+                        manager.Puzzle3();
                         break;
                     case "No":
                         deleteWindow.SetActive(false);

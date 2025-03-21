@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class Puzzle5Manager : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
     private int life = 3;
+    public PlaySound reduceHP;
 
     private bool openSelectPuzzle = false;
     private bool canInput = true;  // ⬅ 키 입력 가능 여부 추가
@@ -49,6 +51,11 @@ public class Puzzle5Manager : MonoBehaviour
     {
         if (openSelectPuzzle)
             return;
+        if (reduceHP == null)
+        {
+            GameObject g = GameObject.Find("reduceHP");
+            reduceHP = g.GetComponent<PlaySound>();
+        }
         CheckQuiz();
         HandleInput();  // ⬅ 모든 입력을 여기서 처리
         if (timerText == null)
@@ -133,7 +140,7 @@ public class Puzzle5Manager : MonoBehaviour
         if (life <= 0) return;
         life--;
         UpdateHeartsUI();
-
+        reduceHP.Play();
         if (life <= 0)
         {
             StartCoroutine(WaitNextScene("GameOverScene"));
@@ -158,6 +165,10 @@ public class Puzzle5Manager : MonoBehaviour
     void GameOver()
     {
         Destroy(gameObject);
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.PuzzleFail[4] = true;
+        }
         SceneManager.LoadScene("GameOverScene");
     }
 

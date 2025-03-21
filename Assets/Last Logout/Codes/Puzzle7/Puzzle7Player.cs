@@ -13,7 +13,7 @@ public class Puzzle7Player : MonoBehaviour
     public Rigidbody2D rb;
     public float fallSpeed = 5f; // 낙하 속도
     public bool falling = false;
-
+    public PlaySound sound;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -49,6 +49,7 @@ public class Puzzle7Player : MonoBehaviour
 
     public void TriggerFall()
     {
+        sound.Play();
         falling = true;
         rocketAnimator.SetTrigger("Fall"); // 애니메이션 실행
         rb.velocity = new Vector2(0, -fallSpeed); // 아래로 낙하

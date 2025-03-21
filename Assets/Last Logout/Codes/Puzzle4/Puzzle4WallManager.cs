@@ -47,6 +47,8 @@ public class Puzzle4WallManager : MonoBehaviour
     }
     void GameOver()
     {
+        if (GameManager.instance != null)
+            GameManager.instance.PuzzleFail[3] = true;
         SceneManager.LoadScene("GameOverScene"); // 클리어 씬으로 이동
     }
 

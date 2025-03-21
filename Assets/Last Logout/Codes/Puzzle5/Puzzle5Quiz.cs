@@ -17,7 +17,7 @@ public class Puzzle5Quiz : MonoBehaviour
     private Vector3 targetPosition; // 목표 위치
     public bool movable = false; // 이동 가능 여부
     public bool correctAnswer = false; // 정답 여부
-
+    public PlaySound sound;
     void Start()
     {
         originalPosition = transform.position;
@@ -25,6 +25,11 @@ public class Puzzle5Quiz : MonoBehaviour
 
     void Update()
     {
+        if (sound == null)
+        {
+            GameObject g = GameObject.Find("CheckSound");
+            sound = g.GetComponent<PlaySound>();
+        }
         // 목표 위치로 부드럽게 이동
         if (isMoving)
         {
@@ -41,6 +46,7 @@ public class Puzzle5Quiz : MonoBehaviour
         {
             UpdateQuizPosition();
         }
+
     }
 
     // 현재 문제와 다음 문제의 위치 조정
@@ -63,6 +69,7 @@ public class Puzzle5Quiz : MonoBehaviour
 
         if (playerChoice == correctAnswer)
         {
+            sound.Play();
             Move(playerChoice);
             movable = false;
         }

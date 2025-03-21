@@ -12,17 +12,31 @@ public class GameSceneMove : MonoBehaviour
         Invoke("LoadNextScene", introDuration);
     }
 
-    void Update()
-    {
-        // 사용자가 Space 키 또는 마우스를 클릭하면 즉시 게임 씬으로 이동
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-        {
-            LoadNextScene();
-        }
-    }
-
     public void LoadNextScene()
     {
-        SceneManager.LoadScene("GameScene");
+        if (GameManager.instance != null)
+        {
+            if (GameManager.instance.PuzzleFail[0] && GameManager.instance.PuzzleFail[2])
+                SceneManager.LoadScene("EndingIntro");
+            else if ((GameManager.instance.PuzzleClear[0] || GameManager.instance.PuzzleClear[2]) && (GameManager.instance.PuzzleClear[1] || GameManager.instance.PuzzleClear[3]) && GameManager.instance.PuzzleClear[6])
+                SceneManager.LoadScene("EndingIntro");
+            else if(GameManager.instance.PuzzleFail[1] && GameManager.instance.PuzzleFail[3])
+                SceneManager.LoadScene("EndingIntro");
+            else if(GameManager.instance.beforeMap == "SNS")
+            {
+                if (GameManager.instance.PuzzleClear[0] == true || GameManager.instance.PuzzleClear[2] == true)
+                    SceneManager.LoadScene(GameManager.instance.beforeMap + "Clear");
+                else if(GameManager.instance.PuzzleFail[0] == true)
+                    SceneManager.LoadScene(GameManager.instance.beforeMap + " Stage1");
+            }
+            else
+            {
+                SceneManager.LoadScene("GameScene");
+            }
+        }
+        else
+        {
+            SceneManager.LoadScene("GameScene");
+        }
     }
 }

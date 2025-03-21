@@ -11,6 +11,8 @@ public class Bomb : MonoBehaviour
     public GameObject String;
     public SpriteRenderer whiteOutSprite; // 화이트 아웃 효과를 줄 스프라이트
     public Puzzle7Player player;
+    public PlaySound mFire;
+    public PlaySound Fire;
     private void Start()
     {
         for(int i = 0;i<4;++i)
@@ -28,6 +30,7 @@ public class Bomb : MonoBehaviour
 
     public IEnumerator BombAnim()
     {
+        mFire.Play();
         for (int i = 0; i < 4; ++i)
         {
             fire[i].SetActive(true);
@@ -47,6 +50,7 @@ public class Bomb : MonoBehaviour
         String.SetActive(false);
         gameObject.SetActive(false);
         bomb_fire.SetActive(true);
+        Fire.Play();
         yield return new WaitForSeconds(0.2f);
         float fadeSpeed = 1.5f; // 페이드 속도
         float alpha = 0f;

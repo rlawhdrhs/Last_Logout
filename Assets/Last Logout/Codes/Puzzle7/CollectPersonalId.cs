@@ -9,6 +9,7 @@ public class CollectPersonalId : MonoBehaviour
     private float timeOffset; // 랜덤한 시작 지점
     public Puzzle7Manager manager;
     public bool isCollected = false;
+    public PlaySound sound;
     void Start()
     {
         timeOffset = Random.Range(0f, 2f); // 랜덤한 시간 차이를 줘서 여러 개가 같은 타이밍에 움직이지 않게 함
@@ -25,6 +26,7 @@ public class CollectPersonalId : MonoBehaviour
         if(collision.gameObject.CompareTag("Player") && !isCollected)
         {
             gameObject.SetActive(false); // 추가 충돌 방지
+            sound.Play();
             isCollected = true;
             manager.collectPI += 1;
             Destroy(gameObject);

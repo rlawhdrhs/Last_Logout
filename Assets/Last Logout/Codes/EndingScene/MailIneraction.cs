@@ -10,6 +10,7 @@ public class MailInteraction : MonoBehaviour
     public EndingManager endingManager;
     private float alpha = 0f;
     private bool isInputBlocked = true; // 입력 차단 변수
+    public PlaySound sound;
     void Start()
     {
         StartCoroutine(StopSec()); // 씬이 시작되면 2초 후에 입력 활성화
@@ -18,8 +19,9 @@ public class MailInteraction : MonoBehaviour
     void Update()
     {
         if (isInputBlocked) return; // 입력 차단
-        if (Input.GetKeyDown(KeyCode.Space)) // 마우스 왼쪽 버튼 클릭 감지
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            sound.StopSound();
             mailOpenObject.SetActive(true); // 열린 메일 활성화
             StartCoroutine(WhiteOutEffect()); // 화이트 아웃 효과 실행
         }

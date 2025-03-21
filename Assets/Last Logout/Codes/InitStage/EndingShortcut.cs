@@ -47,7 +47,9 @@ public class EndingShortcut : MonoBehaviour
     {
         if (gameObject.name == "Exit")
         {
-            Application.Quit();
+            SceneManager.LoadSceneAsync("MainScene");
+            if(GameManager.instance != null)
+                Destroy(GameManager.instance);
             yield break;
         }
         if (isTransitioning) yield break; // 이미 실행 중이면 종료

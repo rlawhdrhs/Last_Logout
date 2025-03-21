@@ -9,7 +9,7 @@ public class PlayerShooting : MonoBehaviour
     public Transform firePoint;      // 총알 발사 위치
     public float bulletSpeed = 10f;  // 총알 속도
     private bool canShoot = true;   // 발사 가능 여부
-
+    public PlaySound shoot;
     private Vector2 lastDirection = Vector2.right; // 플레이어가 마지막으로 바라본 방향
 
     void Start()
@@ -29,6 +29,7 @@ public class PlayerShooting : MonoBehaviour
         // 총 발사
         if (canShoot && Input.GetKeyDown(KeyCode.Space)) // 스페이스바로 발사
         {
+            shoot.Play();
             Shoot();
         }
     }
